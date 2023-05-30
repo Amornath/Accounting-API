@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScopoERP", "ScopoERP.csproj", "{77F64FFF-B3DC-4E57-91A9-28315D8CAFB1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B9EA166C-F7C3-4490-BDD3-D290D931115F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{77F64FFF-B3DC-4E57-91A9-28315D8CAFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F64FFF-B3DC-4E57-91A9-28315D8CAFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F64FFF-B3DC-4E57-91A9-28315D8CAFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F64FFF-B3DC-4E57-91A9-28315D8CAFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3EB87C53-B620-4DB5-9110-5972147ECC30}
+	EndGlobalSection
+EndGlobal
