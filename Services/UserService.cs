@@ -20,21 +20,23 @@ namespace ScopoERP.Services
         private readonly Token _token;
         private readonly IMapper _mapper;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private ERPContext _db;
 
-        public UserService(UserManager<User> userManager, IOptionsMonitor<Token> optionsMonitor, RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public UserService(ERPContext db,UserManager<User> userManager, IOptionsMonitor<Token> optionsMonitor, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _token = optionsMonitor.CurrentValue;
             _roleManager = roleManager;
             _mapper = mapper;
+            _db = db;
         }
 
         public async Task<TokenViewModel> Authorize(LoginViewModel loginVM)
         {
-            var user = await _userManager.FindByEmailAsync(loginVM.Email);
-            var data = await _userManager.CheckPasswordAsync(user, loginVM.Password);
-            
-            if (data == true)
+            //var user = await _userManager.FindByEmailAsync(loginVM.Email);
+            var user = await _userManager.Users.Where(w => w.Email == loginVM.Email && w.PasswordHash == loginVM.Password).FirstOrDefaultAsync();
+
+            if (user != null)
             {
                 var Token = new TokenViewModel()
                 {
@@ -55,15 +57,14 @@ namespace ScopoERP.Services
 
         public async Task<UserViewModel> GetByUserName(string email)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.Users.Where(w => w.Email == email).FirstOrDefaultAsync();
             var data = _mapper.Map<UserViewModel>(user);
-            data.Roles = await GetRolesOfUser(user);
             return data;
         }
 
         private async Task<string> GenerateJwtTokenAsync(string Email)
         {
-            var user = await _userManager.Users.Where(w=>w.Email== Email).Select(u=> new { u.Email, u.UserName, u.Id,u.CompanyId }).FirstOrDefaultAsync();
+            var user = await _userManager.Users.Where(w=>w.Email== Email).Select(u=> new { u.Email, u.UserName, u.Id }).FirstOrDefaultAsync();
             var jwtTokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_token.Key);
 
@@ -74,7 +75,6 @@ namespace ScopoERP.Services
                     new Claim("Id", user.Id),
                     new Claim(JwtRegisteredClaimNames.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtRegisteredClaimNames.NameId, user.CompanyId.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 Expires = DateTime.UtcNow.AddHours(24),
