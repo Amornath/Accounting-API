@@ -15,22 +15,22 @@ public class AccountTypeService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<AccountTypeViewModel>> Get(int pageIndex, int pageSize,int companyid)
+    public async Task<IEnumerable<AccountTypeViewModel>> Get(int pageIndex, int pageSize)
     {
         return await _mapper.ProjectTo<AccountTypeViewModel>(
             _db.AccountTypes
-            .Where(u => u.IsActive == true && u.CompanyId == companyid))
+            .Where(u => u.IsActive == true ))
             .OrderByDescending(o => o.Id)
             .Skip((pageIndex - 1) * pageSize)          
             .Take(pageSize)
             .ToListAsync();
     }
 
-    public async Task<AccountTypeViewModel> GetByID(int id, int companyid)
+    public async Task<AccountTypeViewModel> GetByID(int id)
     {
         return _mapper.Map<AccountTypeViewModel>(
             await _db.AccountTypes
-                .Where(b => b.Id == id && b.IsActive == true && b.CompanyId == companyid)
+                .Where(b => b.Id == id && b.IsActive == true )
                 .SingleOrDefaultAsync());
     }
 
@@ -67,13 +67,13 @@ public class AccountTypeService
         if (AccountTypeVM.Id == 0)
         {
             result =(from j in _db.AccountTypes
-                    where j.Name.ToLower() == AccountTypeVM.Name.ToLower() && j.CompanyId == AccountTypeVM.CompanyId
+                    where j.Name.ToLower() == AccountTypeVM.Name.ToLower()
                     select j.Id);
         }
         else
         {
             result = (from j in _db.AccountTypes
-                      where j.Name.ToLower().Trim() == AccountTypeVM.Name.ToLower().Trim() && j.Id != AccountTypeVM.Id && j.CompanyId == AccountTypeVM.CompanyId
+                      where j.Name.ToLower().Trim() == AccountTypeVM.Name.ToLower().Trim() && j.Id != AccountTypeVM.Id 
                       select j.Id);
         }
 

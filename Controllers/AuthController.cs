@@ -13,14 +13,12 @@ namespace ScopoERP.Controllers
     {
         private readonly UserService _userService;
         private readonly ILogger<AuthController> _logger;
-        private readonly CompanyService _companyService;
        
 
-        public AuthController(UserService userService, ILogger<AuthController> logger, RoleManager<IdentityRole> roleManager, CompanyService companyService)
+        public AuthController(UserService userService, ILogger<AuthController> logger, RoleManager<IdentityRole> roleManager)
         {
             _userService = userService;
             _logger = logger;
-            _companyService = companyService;
            
         }
 

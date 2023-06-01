@@ -23,22 +23,19 @@ public class AccountTypeController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AccountTypeViewModel>>> Get(int pageIndex = 1, int pageSize = 10)
     {
-        var companyid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Ok(await _AccountTypeService.Get(pageIndex, pageSize, Convert.ToInt32(companyid)));
+        
+        return Ok(await _AccountTypeService.Get(pageIndex, pageSize));
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<AccountTypeViewModel>> GetByID(int id)
     {
-        var companyid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Ok(await _AccountTypeService.GetByID(id, Convert.ToInt32(companyid)));
+        return Ok(await _AccountTypeService.GetByID(id));
     }
 
     [HttpPost]
     public async Task<ActionResult<int>> Post(AccountTypeViewModel AccountTypeVM)
     {
-        var companyid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        AccountTypeVM.CompanyId = Convert.ToInt32(companyid);
         if (!_AccountTypeService.IsUnique(AccountTypeVM))
         {
             return Ok(await _AccountTypeService.Create(AccountTypeVM));
@@ -50,8 +47,6 @@ public class AccountTypeController : ControllerBase
     [HttpPut]
     public async Task<ActionResult<AccountTypeViewModel>> Put(AccountTypeViewModel AccountTypeVM)
     {
-        var companyid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        AccountTypeVM.CompanyId = Convert.ToInt32(companyid);
         if (!_AccountTypeService.IsUnique(AccountTypeVM))
         {
             return Ok(await _AccountTypeService.Update(AccountTypeVM));

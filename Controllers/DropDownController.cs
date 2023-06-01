@@ -24,7 +24,7 @@ namespace ScopoERP.Controllers
         [HttpGet("GetDropDownList")]
         public async Task<ActionResult<IEnumerable<DropDownViewModel>>> GetDropDownList(string type, int? accountTypeId = null)
         {
-            return Ok(await _dropDownService.GetDropDownList(type, areaType, accountTypeId));
+            return Ok(await _dropDownService.GetDropDownList(type,  accountTypeId));
         }
     }
 }

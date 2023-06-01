@@ -77,7 +77,7 @@ public class SubsidiaryAccountService
         _db.SubsidiaryAccounts.Update(data);
         return await _db.SaveChangesAsync();
     }
-    public async Task<string> GetAccountNo(int? companyid)
+    public async Task<string> GetAccountNo()
     {
         string newDONo = string.Empty;
 

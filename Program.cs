@@ -24,20 +24,6 @@ builder.Services.AddTransient<ERPContext>();
 // Add services to the container.
 builder.Services.AddScoped<DropDownService>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<ItemService>();
-builder.Services.AddScoped<ItemCategoryService>();
-builder.Services.AddScoped<CustomerService>();
-builder.Services.AddScoped<CommissionService>();
-builder.Services.AddScoped<SupplierService>();
-builder.Services.AddScoped<UnitService>();
-builder.Services.AddScoped<EmployeeService>();
-builder.Services.AddScoped<RequisitionService>();
-builder.Services.AddScoped<InventoryReceiveService>();
-builder.Services.AddScoped<InventoryIssueService>();
-builder.Services.AddScoped<ProductionService>();
-builder.Services.AddScoped<SalesOrderService>();
-builder.Services.AddScoped<InvoiceService>();
-builder.Services.AddScoped<DesignationService>();
 builder.Services.AddScoped<AccountTypeService>();
 builder.Services.AddScoped<AccountBalanceService>();
 builder.Services.AddScoped<CostCenterService>();
@@ -45,38 +31,8 @@ builder.Services.AddScoped<FinancialYearService>();
 builder.Services.AddScoped<ParentAccountService>();
 builder.Services.AddScoped<SubsidiaryAccountService>();
 builder.Services.AddScoped<TransactionService>();
-builder.Services.AddScoped<AttendanceService>();
-builder.Services.AddScoped<LeaveApplicationService>();
-builder.Services.AddScoped<LeaveTypeService>();
-builder.Services.AddScoped<MonthlySalaryService>();
-builder.Services.AddScoped<LcService>();
-builder.Services.AddScoped<BackToBackLCService>();
-builder.Services.AddScoped<DeliveryChallanService>();
-builder.Services.AddScoped<CompanyService>();
-builder.Services.AddScoped<DivisionService>();
-builder.Services.AddScoped<PurchaseOrderService>();
-builder.Services.AddScoped<StoreService>();
-builder.Services.AddScoped<DepartmentService>();
-builder.Services.AddScoped<PurchaseReturnService>();
-builder.Services.AddScoped<SalesReturnService>();
 builder.Services.AddScoped<ReportService>();
-builder.Services.AddScoped<StoreTransferService>();
-builder.Services.AddScoped<BankService>();
-builder.Services.AddScoped<ProductionUnitService>();
-builder.Services.AddScoped<HolidayService>();
-builder.Services.AddScoped<WorkingShiftService>();
 builder.Services.AddScoped<VoucherTypeService>();
-builder.Services.AddScoped<ItemCriteriaService>();
-builder.Services.AddScoped<LabTestService>();
-builder.Services.AddScoped<FormulationService>();
-builder.Services.AddScoped<ProductionPlanService>();
-builder.Services.AddScoped<BillingService>();
-builder.Services.AddScoped<DashboardService>();
-builder.Services.AddScoped<DiscountTypeService>();
-builder.Services.AddScoped<PromotionService>();
-builder.Services.AddScoped<SalaryTypeService>();
-builder.Services.AddScoped<SalaryIncrementService>();
-builder.Services.AddScoped<GeoGraphService>();
 
 builder.Services.AddCors(options =>
 {
@@ -121,7 +77,7 @@ builder.Services.AddIdentityCore<User>(options =>
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "ERP", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Accounting", Version = "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -163,7 +119,7 @@ app.UseDeveloperExceptionPage();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ERP API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Accounting API V1");
 
 });
 

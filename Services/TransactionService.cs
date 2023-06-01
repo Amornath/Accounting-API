@@ -69,7 +69,7 @@ public class TransactionService
         return list;
     }
 
-    public async Task<TransactionViewModel> GetByID(int id,int companyid)
+    public async Task<TransactionViewModel> GetByID(int id)
     {
         return await _mapper.ProjectTo<TransactionViewModel>(_db.Transactions.Where(w => w.Id == id && w.IsActive == true )).SingleOrDefaultAsync();
     }
@@ -127,7 +127,7 @@ public class TransactionService
 
     public async Task<string> CreateAutoJournal(Transaction transaction)
     {
-        transaction.VoucherTypeId = _db.VoucherTypes.Where( w.Name == "JournalVoucher").Select(s => s.Id).FirstOrDefault();
+        transaction.VoucherTypeId = _db.VoucherTypes.Where(w=> w.Name == "JournalVoucher").Select(s => s.Id).FirstOrDefault();
         transaction.TransactionNo = await GetTransactionNo();
 
         await _db.Transactions.AddAsync(transaction);

@@ -15,22 +15,22 @@ public class VoucherTypeService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<VoucherTypeViewModel>> Get(int pageIndex, int pageSize, int companyid)
+    public async Task<IEnumerable<VoucherTypeViewModel>> Get(int pageIndex, int pageSize)
     {
         return await _mapper.ProjectTo<VoucherTypeViewModel>(
             _db.VoucherTypes
-            .Where(u => u.IsActive == true && u.CompanyId == companyid))
+            .Where(u => u.IsActive == true))
             .OrderByDescending(o => o.Id)
            .Skip((pageIndex - 1) * pageSize)
            .Take(pageSize)
            .ToListAsync();
     }
 
-    public async Task<VoucherTypeViewModel> GetByID(int id, int companyid)
+    public async Task<VoucherTypeViewModel> GetByID(int id)
     {
         return _mapper.Map<VoucherTypeViewModel>(
             await _db.VoucherTypes
-                .Where(b => b.Id == id && b.IsActive == true && b.CompanyId == companyid)
+                .Where(b => b.Id == id && b.IsActive == true )
                 .SingleOrDefaultAsync());
     }
 
@@ -69,13 +69,13 @@ public class VoucherTypeService
         if (VoucherTypeVM.Id == 0)
         {
             result = (from j in _db.VoucherTypes
-                      where j.Name.ToLower() == VoucherTypeVM.Name.ToLower() && j.CompanyId == VoucherTypeVM.CompanyId
+                      where j.Name.ToLower() == VoucherTypeVM.Name.ToLower()
                       select j.Id);
         }
         else
         {
             result = (from j in _db.VoucherTypes
-                      where j.Name.ToLower().Trim() == VoucherTypeVM.Name.ToLower().Trim() && j.Id != VoucherTypeVM.Id && j.CompanyId == VoucherTypeVM.CompanyId
+                      where j.Name.ToLower().Trim() == VoucherTypeVM.Name.ToLower().Trim() && j.Id != VoucherTypeVM.Id
                       select j.Id);
         }
 
